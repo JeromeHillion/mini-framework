@@ -9,7 +9,7 @@ class Config
 
     private function __construct()
     {
-        $this->config = parse_ini_file('bdd.ini');
+        $this->config = parse_ini_file('config.ini');
     }
 
     public static function getInstance(): Config
@@ -32,9 +32,10 @@ class Config
         if (empty($config)) {
             $config = $this->getFullConfig();
         }
-        foreach ($config as $data){
-            $value = $data.' ';
+        if (array_key_exists($value, $config)){
+            $param = $config[$value];
         }
-        return $value ;
+        return $param ;
+
     }
 }
