@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Manager;
+
 use App\Controller\ControllerInterface;
 use App\Manager\UrlManager;
 
@@ -8,7 +9,9 @@ class ControllerManager
 {
     private static $_instance;
 
-    private function __construct(){}
+    private function __construct()
+    {
+    }
 
     public static function getInstance(): ControllerManager
     {
@@ -19,17 +22,16 @@ class ControllerManager
     }
 
 
+    public static function getController(): ControllerInterface
+    {
+        $urlManager = UrlManager::getInstance();
+        $controllerName = $urlManager->getControllerName();
 
-    public static function getController(): ControllerInterface{
-    $urlManager = UrlManager::getInstance();
-    $controllerName =$urlManager->getControllerName();
-        /*var_dump($ControllerClass);
-        die;*/
-    if (empty($controllerName)){
-        $controllerName = 'Index';
-    }
+        if (empty($controllerName)) {
+            $controllerName = 'Index';
+        }
 
-        $ControllerClass = "App\\Controller\\".$controllerName."Controller";
+        $ControllerClass = "App\\Controller\\" . $controllerName . "Controller";
 
         return new  $ControllerClass;
     }

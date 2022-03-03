@@ -4,6 +4,7 @@ namespace App\System;
 
 
 use App\Bdd\Connection;
+use App\Controller\ControllerInterface;
 use App\Manager\ControllerManager;
 
 
@@ -44,8 +45,9 @@ class App
         return ControllerManager::getInstance();
     }
 
-    public function getController(){
-        echo $this->getControllerManagerInstance()->getController();
+    public function getController(): ControllerInterface
+    {
+      return  $this->getControllerManagerInstance()->getController();
     }
 
 }
