@@ -3,47 +3,40 @@
 namespace App\System;
 
 
-use App\Config\Config;
-use App\Config\Connection;
+use App\Bdd\Connection;
+
+
 
 class App
 {
 
     private static $_instance;
-    private  $connection;
+
 
     private function __construct()
     {
     }
-public static function getInstance(): App
-{
-     if (is_null(self::$_instance)){
-         self::$_instance = new App();
-     }
-         return self::$_instance;
-}
 
-public function getConfigInstance(): Config
-{
-      return Config::getInstance();
-}
+    public static function getInstance(): App
+    {
+        if (is_null(self::$_instance)) {
+            self::$_instance = new App();
+        }
+        return self::$_instance;
+    }
 
-public function getConnection(){
 
-    if (!$this->connection){
+    public function getConnectionInstance(): Connection
+    {
 
-        $this->connection= new Connection(
-                $this->getConfigInstance()->getConfig('db_host'),
-                $this->getConfigInstance()->getConfig('db_name'),
-                $this->getConfigInstance()->getConfig('db_user'),
-                $this->getConfigInstance()->getConfig('db_password')
+        return Connection::getInstance();
+    }
 
-            );
+    public function getConnection(): \PDO
+    {
+
+        return $this->getConnectionInstance()->getConnection();
 
     }
-    if ($this->connection){
-        echo "Connexion à la bdd réussi";
-    }
-}
 
 }
