@@ -37,7 +37,7 @@ class Connection
         $connection = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
         $connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
-        echo 'Connexion à la Bdd réussi !';
+        /*echo 'Connexion à la Bdd réussi !';*/
 
         return $connection;
     }
